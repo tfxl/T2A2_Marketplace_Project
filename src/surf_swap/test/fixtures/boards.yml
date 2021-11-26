@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  designer: MyString
+  length: 1
+  width: 1
+  volume: 1
+  fins: MyString
+  tail: MyString
+  attachments: MyString
+  description: MyText
+  user: one
+
+two:
+  designer: MyString
+  length: 1
+  width: 1
+  volume: 1
+  fins: MyString
+  tail: MyString
+  attachments: MyString
+  description: MyText
+  user: two

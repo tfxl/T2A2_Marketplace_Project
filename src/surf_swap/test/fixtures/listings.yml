@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  listing_date: 2021-11-09
+  meetup_date: 2021-11-09
+  meetup_time: 2021-11-09 15:39:47
+  location: one
+  header: MyString
+  comment: MyText
+
+two:
+  listing_date: 2021-11-09
+  meetup_date: 2021-11-09
+  meetup_time: 2021-11-09 15:39:47
+  location: two
+  header: MyString
+  comment: MyText
