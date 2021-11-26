@@ -1,0 +1,17 @@
+<% if notice %>
+
+  <span class="notice"
+    style="color:grey"
+    class="px-2 nav col-12 col-lg-auto me-sm-auto mb-2 justify-content-center mb-md-0"><%= notice %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+
+<% elsif alert %>
+
+  <span class="alert"
+    style="color: orange"
+    class="px-2 nav col-12 col-lg-auto me-sm-auto mb-2 justify-content-center mb-md-0"><%= alert %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+
+<% end %>

@@ -1,0 +1,11 @@
+<% case board.user%>
+<% when current_user %>
+
+  <%= link_to "Edit Details", edit_board_path(board), class: "btn btn-outline-dark me-2",  data: {confirm: "If you edit any board that is being listed somewhere, that listing will be deleted. Continue ?"}%>
+
+  <% else %>
+
+    <%# future implementation %>
+    <%# link_to "View Description", edit_board_path(board), class: "btn btn-outline-dark me-2" %>
+
+<% end %>

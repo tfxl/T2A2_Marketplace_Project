@@ -1,0 +1,156 @@
+
+<h1> Surfing Gear from  <%= @host.first_name %> </h1>
+
+
+<h1> <%= @listing.header %></h1>
+
+<div>
+
+  <h2> SWAP LOCATION </h2>
+  <p><%= @listing.address.name %></p>
+  <p><%= @listing.address.street_name %></p>
+  <p><%= @listing.address.suburb %></p>
+  <h1> <%= @listing.meetup_time %></h1>
+
+  <% case @item_count %>
+  <% when 1 %>
+  <h2> Single Item <%= @host.first_name %> wants to swap </h2>
+  <% else %>
+  <h2> Swap-pack <%= @host.first_name %> wants to trade </h2>
+  <% end %> 
+
+
+  <% @listing.boards.each do |board| %>
+
+
+  <%= cl_image_tag board.board_image.key, crop: :scale, width: 400, cloud_name: 'ddskwbftr' if board.board_image.attached?%>
+  <%# NEW IMAGE COMMAND   ASSC.   .KEY METHOD  CROP: :SCALE to WIDTH      CLOUD NAME SPECIFIC %>
+
+    <div style="margin: 10px; padding: 10px; background-color: lightgreen; width: 300px">
+      <p>Designer: <%= board.designer%></p>
+      <p>Length: <%= board.length%></p>
+      <p>Width: <%= board.width %></p>
+      <p>Volume: <%= board.volume %></p>
+      <p>Fin Type: <%= board.fins %></p>
+      <p>Tail Type: <%= board.tail %></p>
+      <p>Attachments <%= board.attachments %></p>
+      <p>Description: <%= board.description %></p>
+    </div>
+
+  <% end %>
+
+  <% if @host != current_user %>
+    <h3><%= link_to "Offer a SWAP", new_offer_path %></h3>
+    <br>
+    <p> Click to <%= link_to "see all listings from #{@host.first_name}", root_path %> </p>
+
+    <% elsif @host == current_user %>
+    <p><%= link_to "Edit Listing", edit_listing_path(@listing), data: {confirm: "Editing a listing will delete current offers under consideration and a message will be sent to those users. Please confirm"} %></p>
+    <p><%= link_to "Delete Listing", listing_path(@listing), method: :delete, data: {confirm: "This will delete listing and all offers. Please confirm"}%> </p>
+  <% end %>
+
+
+<h1 style="color:darkblue"> ##################################################### </h1>
+
+
+<%# ############################ OFFERS ####################################### %>
+
+<% case @offer_count %>
+<% when 0 %>
+  <p> No current offers </p>
+<% end %>
+
+<% begin %>
+
+  <% @listing.offers.each do |offer| %>
+
+  CONSIDER making an html class to determine the colors or embedded @color etc.
+
+    <% case offer.status %>
+    <% when "accepted" %>
+      <section style="background-color: green; width: 300px;" class="CHOOSESOMETHING">
+    <% when "rejected" %>
+      <section style="background-color: grey; width: 300px;">
+    <% else %>
+      <section style="background-color: pink; width: 300px;">
+    <% end %>
+
+    
+      <% date_time = offer.created_at.to_s.chars %>
+      <p> <%= date_time[0..9].join %>  </p>
+    
+      <h3> OFFER <%=offer.id %> </h2>
+
+        <p > STATUS : [ <%= offer.status %> ] </p>
+
+        <p> <% offer.boards.each do |offerer_board| %> </p>
+        <div style="background-color: lightgray;">
+
+          <%= cl_image_tag offerer_board.board_image.key, crop: :scale, width: 400, cloud_name: 'ddskwbftr' if offerer_board.board_image.attached?%>
+          <%# NEW IMAGE COMMAND   ASSC.   .KEY METHOD  CROP: :SCALE to WIDTH      CLOUD NAME SPECIFIC %>
+
+          <p>Designer: <%= offerer_board.designer %></p>
+          <p>Length: <%= offerer_board.length %></p>
+          <p>Width: <%= offerer_board.width %></p>
+          <p>Volume: <%= offerer_board.volume %></p>
+          <p>Fin Type: <%= offerer_board.fins %></p>
+          <p>Tail Type: <%= offerer_board.tail %></p>
+          <p>Attachments: <%= offerer_board.attachments %></p>
+          <p>Comments: <%= offerer_board.description %></p>
+
+          <%# render 'board_attributes', button_name: "Launch New Listing"%>
+          
+        </div>
+
+        <% end %>
+        
+      <h3> QUESTIONS / COMMENTS </h2>
+      <p> <%= offer.comment %> </p>
+      
+      <p>&nbsp;&nbsp; <%= offer.user.first_name %> </p>
+
+
+
+  <%# ########################  OFFER OPTIONS ####################################### %>
+  <%# https://stackoverflow.com/questions/6247491/rails-3-display-link-as-button %>
+
+      
+    <% if @listing.user == current_user %>
+
+      <% case offer.status %>
+      <% when "accepted" %>
+      <p> this offer has been accepted and a Meetup has been formed. If you no longer want to accept this offer, please cancel the meetup and this entry will automatically be under consideration</p>
+
+      <% when "rejected" %>
+        <p>click here to undo the rejection (offer will be back under consideration and user notified)</p>
+        <p style="background-color: yellow; width: 150px; height: 30px"> <%= link_to "Undo Rejection", reset_offer_path(offer.id) %></p>
+
+      <% else %>
+        <p style="background-color: yellow; width: 150px; height: 30px"> <%= link_to "ACCEPT OFFER", accept_offer_path(offer.id) %></p>
+        <p style="background-color: yellow; width: 150px; height: 30px"> <%= link_to "REJECT OFFER", reject_offer_path(offer.id) %></p>
+        
+      <% end %>
+
+    <% elsif offer.user == current_user %>
+      <p style="background-color: yellow; width: 150px; height: 30px"> <%= link_to "EDIT OFFER", edit_offer_path(offer.id) %></p>
+      <p style="background-color: yellow; width: 150px; height: 30px"> <%= link_to "REMOVE OFFER", reject_offer_path(offer.id) %></p>
+
+    <% end %>
+        
+    <h1>&nbsp;&nbsp; <%= offer.user.first_name %> </h1>
+      
+
+  <% end %>
+
+      <p>SEND MESSAGE TO <%=offer.user.first_name %></p>
+      
+  </section>
+
+
+
+
+<% rescue %>
+
+<% end %>
+
+

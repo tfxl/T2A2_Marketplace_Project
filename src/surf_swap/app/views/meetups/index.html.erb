@@ -1,0 +1,19 @@
+<main class="bg-image" 
+style="background-image: url('https://images.pexels.com/photos/5792680/pexels-photo-5792680.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');  
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+height:100vh;">
+
+  <%= render 'header' %>
+
+  <% none_msg = "No hosted Meetups are currently scheduled" %>
+  <%= render 'meetup_collection', title: "Hosted Meetups", none_msg: none_msg, meetup_collection: @hosted_meetups %>
+
+  <% none_msg = "None of your offers have been accepted for a Swap Meetup currently" %>
+  <%= render 'meetup_collection', title: "Invited to Meetups", none_msg: none_msg, meetup_collection: @accepted_meetups %>
+
+</main>

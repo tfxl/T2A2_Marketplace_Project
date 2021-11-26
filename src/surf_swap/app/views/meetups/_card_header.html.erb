@@ -1,0 +1,12 @@
+<div class="p-2" style="background-color: lightyellow; color:darkslategray">
+
+  Meet Date: <%= controller.formatted_date(listing.meetup_date) %> <%= controller.formatted_time(listing.meetup_time) %>
+  <br>
+  <%= listing.address.name %>
+  <br>
+  <%= listing.address.street_number %> <%= listing.address.street_name %>
+  <br>
+  <%= listing.address.suburb %>, <%= listing.address.postcode.state %>, <%= listing.address.postcode.number %>
+
+</div>
+

@@ -1,0 +1,23 @@
+<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+  <li class="text-end">   
+    <%= link_to "See your Gear", boards_path, class: "btn btn-outline-dark me-2 mb-3"  %>          
+  </li>
+  <li class="text-end">     
+    <%= link_to "Add a Board", new_board_path, class: "btn btn-outline-dark me-2 mb-3"  %>          
+  </li>
+  <li  class="text-end">     
+    <%= link_to "Create Listing", new_listing_path, class: "btn btn-outline-light me-2 mb-3"  %>          
+  </li>
+  <li  class="text-end">     
+    <%= link_to "See My Listings", my_listings_path, class: "btn btn-outline-light me-2 mb-3"  %>          
+  </li>
+  <li  class="text-end">     
+    <%= link_to "See  Meetups [#{@meetup_count}]", meetups_path, class: "btn btn-outline-dark me-2 mb-3"  %> 
+  </li>
+  <li></li>
+  <li  class="text-end">     
+    <%= link_to "Check Inbox #{"[0]"}", inbox_path, class: "btn btn-outline-dark me-2 mb-3"  %>          
+  </li>
+
+</ul>

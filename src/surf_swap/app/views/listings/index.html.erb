@@ -1,0 +1,99 @@
+
+<main
+  class="bg-image" 
+  style="background-image: url('https://images.pexels.com/photos/111085/pexels-photo-111085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  height:100vh;">
+
+  <%= render 'index_header' %>
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <% case @listings.count %>
+        <% when 0 %>
+
+          <div class="text-start p-3" style="font-style: italic; border: solid 1px red"> 
+            <p><%= @no_listings_msg %></p>
+            <%= link_to "Create New Listing", new_listing_path, class: "btn btn-outline-dark me-2"  %>          
+          </div>
+
+        <% else %>
+
+          <% @listings.each do |listing| %>
+
+            <% case listing.boards.count %>
+            <% when 1 %>
+              <% swap_type = 'This is a "Single-Item" Swap' %>
+            <% else %> 
+              <% swap_type = 'Part of a "Multi-Item" Swap' %>
+            <% end %>
+
+            <% listing.boards.each do |board| %>
+
+              <div class="col">
+                <% case board.user %>
+                <% when current_user %>
+                  <div class="card shadow-sm" style="border: solid 1px yellow">
+                  <% @descriptor = "#{swap_type} that you listed" %>
+                <% else %>
+                  <div class="card shadow-sm">
+                    <% @descriptor = "#{swap_type} from #{listing.user.first_name}" %>
+                <% end %>
+
+                
+                  <div class="p-2" style="background-color: lightblue; color:darkslategray">
+                    Created: <%= controller.formatted_date(listing.created_at) %>
+                    <p>Location: <%= listing.address.suburb %>, <%= listing.address.postcode.state %> <%= listing.address.postcode.number %> </p>
+                    <p style="font-style: italic;"><%=@descriptor %> </p>
+                  </div>
+                  
+                  <%= cl_image_tag board.board_image.key, crop: :scale, width: 200, cloud_name: 'ddskwbftr' if board.board_image.attached?%>
+              
+                  <div class="card-body">
+                    <p class="card-text">Shaper: <%= board.designer%> </p>
+                    <p class="card-text">Description: <%= board.description%> </p>
+                    <hr class="mt-2 mb-2">
+                    
+                    <p class="card-text"> <%= listing.comment %> </p>
+                    <div class="d-flex justify-content-between align-items-center">
+
+                      <div class="btn-group">
+                        <%= link_to "View Listing", listing_path(listing), class: "btn btn-sm btn-outline-secondary" %>
+                      </div>
+
+
+                      <% count = listing.offers.count %>
+                      <% offer_term = "current_offers" %>
+                      <% case listing.offers.count %>
+                      <% when 1 %>
+                        <% offer_term = "current offer" %>
+                
+                      <% else %>
+                        <% offer_term = "current offers" %>
+                     
+                      <% end %>
+                      <small class="text-muted"><%= count %> <%= offer_term %></small>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <% end %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+</main>

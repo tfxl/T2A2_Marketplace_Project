@@ -1,0 +1,96 @@
+
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Surfing Gear from  <%= @host.first_name %> </h1>
+        <p class="lead text-muted">Checkout details of swap and make an offer</p>
+        <p>
+          <%= link_to "See all listings from #{@host.first_name}", new_board_path, class: "btn btn-primary my-2"  %> 
+          <a href="#" class="btn btn-secondary my-2">See Something Else</a>
+          <h4>Consider a search option</h4>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <h1> <%= @listing.header %></h1>
+  <h2> SWAP LOCATION </h2>
+  <p><%= @listing.address.name %></p>
+  <p><%= @listing.address.street_name %></p>
+  <p><%= @listing.address.suburb %></p>
+  <h1> <%= @listing.meetup_time %></h1>
+
+  <% case @item_count %>
+  <% when 1 %>
+  <h2> Single Item <%= @host.first_name %> wants to swap </h2>
+  <% else %>
+  <h2> Swap-pack <%= @host.first_name %> wants to trade </h2>
+  <% end %> 
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+        <%# case @boards.count %>
+        <%# when  %>
+          <!-- <h2>No boards currently. Please add one to allow trading</h2> -->
+        <%# end %>
+
+        <% @listing.boards.each do |board| %>
+
+        
+        <div class="col">
+          <div class="card shadow-sm" >
+            <div style="background-color: lightblue; color:darkslategray">
+              <p class="card-text">
+                <%= board.designer %> (Nickname?)
+              </p>
+          
+            </div>
+            
+            <%= cl_image_tag board.board_image.key, crop: :scale, width: 200, cloud_name: 'ddskwbftr' if board.board_image.attached?%>
+            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+
+
+            <div class="card-body">
+
+             
+              <p class="card-text">Length: <%= board.length %></p>
+              <p class="card-text">Width: <%= board.width %></p>
+              <p class="card-text">Volume: <%= board.volume %></p>
+              <p class="card-text">Fin Type: <%= board.fins %></p>
+              <p class="card-text">Tail Type: <%= board.tail %></p>
+              <p class="card-text">Attachments: <%= board.attachments %></p>
+              <p class="card-text">Description: <%= board.description %></p>
+
+
+              <div class="d-flex justify-content-between align-items-center">
+
+         
+          
+
+
+                <div class="btn-group">
+
+                  <%= link_to "Edit", edit_board_path(board), class: "btn btn-outline-dark me-2" %>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= link_to "Delete", board_path(board), method: :delete, class: "btn btn-outline-dark me-2", data: {confirm: "This will delete board. Are you sure?"} %>
+     
+                </div>
+                <small class="text-muted">0 views</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      
+       <% end %>
+
+      </div>
+    </div>
+  </div>
+
+</main>

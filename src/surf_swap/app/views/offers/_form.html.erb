@@ -1,0 +1,35 @@
+
+<%= render 'header', title: "form_title"%>
+<%= render 'layouts/nav_flash_output_E' %>
+
+<section class="container contact-form row">
+
+  <%= form_with model: @offer do |field|%>
+
+    <%= field.hidden_field :listing_id, value: @id %>
+
+    <br>
+    <h5><span style="color:darkslateblue">STEP 1:</span> Select the surfboards that you are willing to trade with <%= @hostname %> </h5>
+    <br>
+
+    <div class="form-check d-flex justify-content-between" style="flex-direction:column;">
+      <%= field.label "Available Boards:" %> 
+      <%= field.collection_check_boxes :board_ids, @boards, :id, :designer %>
+    </div>  
+
+    <br>
+    <h5><span style="color:darkslateblue">STEP 2:</span> Please add any comments</h5>
+    <br>
+
+    <div class="form-group">
+      <%= field.label "Comments" %> 
+      <%= field.text_area :comment, class: "form-control", placeholder: "Please add any comments to your offer*",  style: "width: 100%; height: 150px;"%>
+    </div>
+
+    <h5><span style="color:darkslateblue">STEP 3:</span> Hit Submit and check back later to see if <%= @hostname %> accepts your offer to trade !</h5>
+    <p style="font-style: italic;"> Please note that if your offer is accepted, then a meetup at the proposed time in the listing will automatically be created</p>
+
+    <%= field.submit button_name, class: "btn btn-dark mb-5"%> 
+
+  <% end %>
+</section>

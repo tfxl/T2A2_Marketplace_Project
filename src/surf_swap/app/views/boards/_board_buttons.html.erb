@@ -1,0 +1,11 @@
+<div class="btn-group">
+
+  <% if board.status == "Swap Agreed" %>
+    <p class="text-muted">Cannot edit or delete a board with a swap arranged</p>
+
+  <% else %>
+    <%= link_to "Edit", edit_board_path(board), class: "btn btn-outline-dark me-2", data: {confirm: "Editing board details will remove any listing featuring this board. Please confirm"}%>
+    <%= link_to "Delete", board_path(board), method: :delete, class: "btn btn-outline-dark me-2", data: {confirm: "This will delete board. Are you sure?"} %> 
+
+  <% end %>
+</div>

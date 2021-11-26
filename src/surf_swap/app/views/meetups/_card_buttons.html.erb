@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between align-items-center">
+  <div class="btn-group">
+  
+    
+    <% case meetup.listing.user %>
+    <% when current_user %>
+    <%= link_to "SWAP DONE", swap_completed_path(meetup), class: "btn btn-sm btn-outline-secondary", data: {confirm: "Great news! This will process the swap, and your inventory will be updated. Continue ?"}%>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to "CANCEL MEETUP", host_cancellation_path(meetup), class: "btn btn-sm btn-outline-secondary", data: {confirm: "Once clicked, this Meetup will be cancelled and the original listing will become active again. Continue ?"}%>
+    
+    <% else %>
+      <%= link_to "CANCEL MEETUP", responder_cancellation_path(meetup), class: "btn btn-sm btn-outline-secondary", data: {confirm: "If you click this, the Meetup will be cancelled. Continue ?"}%>
+    
+    <% end %>
+
+  </div>
+</div>

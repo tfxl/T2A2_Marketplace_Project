@@ -1,0 +1,31 @@
+<% if @host != current_user %>
+
+ 
+  <% case @available_board_count %>
+  <% when 0 %>
+
+    <p style="color:darkslateblue"> You do not have any boards available to offer a swap. Please add one from the Home Page menu</p>
+
+  <% else %> 
+    <h3><%= link_to "Offer a SWAP", new_offer_path, class: "btn btn-outline-dark me-2" %></h3>
+  <% end %>
+
+  <br>
+  <p>
+    <%= link_to "Click to see all listings from #{@host.first_name}", see_user_listings_path(@listing) %> 
+  </p>
+
+<% elsif @host == current_user %>
+
+  <% case @listing.status %>
+  <% when "meetup_planned" %>
+    <p>This offer has now been accepted and a formal Meetup has been arranged.
+      If you no longer want to accept this offer, please cancel the meetup</p>
+  <% else %>
+    <%= link_to "Edit My Listing", edit_listing_path(@listing), class: "btn btn-outline-dark me-2", data: {confirm: "Editing a listing will delete current offers under consideration and a message will be sent to those users. Please confirm"} %>
+    <%= link_to "Delete My Listing", listing_path(@listing), class: "btn btn-outline-dark me-2", method: :delete, data: {confirm: "This will delete listing and all offers. Please confirm"}%>
+  <% end %>
+
+<% end %>
+
+<br><br>

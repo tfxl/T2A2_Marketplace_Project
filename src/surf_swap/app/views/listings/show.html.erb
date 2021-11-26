@@ -1,0 +1,157 @@
+<!-- Page Content -->
+
+<!-- ################ HEADER ############################# -->
+
+<div class="container">
+
+  <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Surfing Gear Swap from  <%= @host.first_name %></h1>
+  <h4 class="fw-light text-center text-lg-start mt-4 mb-0"><%= @listing.header %></h4>
+
+  <hr class="mt-2 mb-3">
+
+ 
+  <%= render 'show_top_buttons' %>
+
+
+  <!-- ###################### LISTING DETAILS ######################### -->
+
+
+
+  <h4> Proposed Meetup Details </h4>
+ 
+  <p style="padding-left: 10px"><%= @listing.address.name %></p>
+  <span style="padding-left: 10px"><%= @listing.address.street_number %> <%= @listing.address.street_name %></span>
+  <br>
+  <span style="padding-left: 10px"><%= @listing.address.street_name %></span>
+
+  <p style="padding-left: 10px"><%= @listing.address.suburb %> <%= @listing.address.postcode.state %> <%= @listing.address.postcode.number %></p>
+  <p style="padding-left: 10px; background-color:lightyellow"><%= @time %> on the <%= @date %></p>
+
+  <p style="padding-left: 10px; font-style:italic"><%= @listing.comment %></p>
+
+  <div class="row text-center text-lg-start" style="border:3px solid green">
+
+
+
+
+  <%= render 'show_panel', proposal: @listing %>
+    
+   
+  </div>
+
+</div>
+
+
+<!-- ################### ALL OFFERS ################### -->
+
+
+<% case @offer_count %>
+<% when 0 %>
+  <% comment = "No current offers" %>
+<% end %>
+
+<div class="container">
+
+  <h2 class="fw-light text-center text-lg-start mt-4 mb-0">All Offers</h2>
+ 
+  <% case @offer_count %>
+  <% when 0 %>
+    <p> No current offers <p>
+  <% end %>
+
+
+  <hr class="mt-2 mb-5">
+
+<!-- ##################### LISTING ITERATIONS ########################### -->
+
+  <% @listing.offers.each do |offer| %>
+
+    <p>Offer created: <%= controller.formatted_date(offer.created_at) %></p>
+    <span> From: <%= offer.user.first_name %></span>
+    <p> <%=offer.comment %></p>
+    
+    <% if @host == current_user %>
+
+      <% case offer.status %>
+      <% when "accepted" %>
+        <p style="font-style:italic; color: darkslategray"> This offer has now been accepted and a formal Meetup has been arranged.
+          If you no longer want to accept this offer, please cancel the meetup </p>
+
+      <% when "rejected" %>
+        <%= link_to "Undo Rejection", reset_offer_path(offer.id), class: "btn btn-outline-dark me-2" %>
+        <%= link_to "Delete Offer", offer_path(offer.id), method: :delete, class: "btn btn-outline-dark me-2" %>
+
+      <% else %>
+        <%= link_to "Accept Offer", accept_offer_path(offer.id), class: "btn btn-outline-dark me-2", data: {confirm: "Accepting this offer will automatically create a Meetup with #{offer.user.first_name}. Please confirm"} %>
+        <%= link_to "Reject Offer", reject_offer_path(offer.id), class: "btn btn-outline-dark me-2", data: {confirm: "This will reject the offer and notify #{offer.user.first_name}. Please confirm"}%>
+      
+      <% end %>
+
+    <% elsif offer.user == current_user %>
+
+      <div>
+        
+        <%= link_to "Edit My Offer", edit_offer_path(offer), class: "btn btn-warning me-2" %>
+        &nbsp;&nbsp;
+        <%= link_to "Remove My Offer", offer_path(offer), method: :delete, class: "btn btn btn-warning me-2" %>
+      </div>
+
+    <% end %>
+
+
+  <!-- ##################### OFFER ITEMS ########################### -->
+    <!-- ##################### BORDER ########################### -->
+    <br><br>
+
+    <% case offer.status %>
+    <% when "accepted" %>
+
+      <div class="row text-center text-lg-start bg-image mb-5" style="border:3px solid green;
+      background-image: url('https://toppng.com/uploads/preview/accepted-1-cajo-records-canton-jones-dominionaire-remixed-cd-11563075835t8gowlqrde.png');  
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      height:100%;">
+
+
+    <% when "reconsidered" %>
+      <div class="row text-center text-lg-start" style="border:3px solid gray">
+
+    <% when "rejected" %>
+
+      <div class="row text-center text-lg-start bg-image mb-5" style="border:3px solid red; background-color: grey;
+      background-image: url('https://toppng.com/uploads/preview/red-rejected-stamp-11523441388utb5fruxox.png');  
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      height:100%;">
+      
+    
+    <% else %>
+      <div class="row text-center text-lg-start mb-5" style="border:3px solid gray">
+    <% end %>
+    
+ <!-- ##################### OFFER ITEMS CONT ########################### -->
+    <!-- ##################### BOARD ITERATIONS ########################### -->
+
+
+        <%= render 'show_panel', proposal: offer %>
+
+        
+      </div>
+
+<!-- ##################### CLOSE LISTING AND CONTAINER ########################### -->
+    
+  <% end %>     
+  <br>
+  <br> 
+</div>
+
+
+

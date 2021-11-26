@@ -1,0 +1,22 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light"><%=@title%></h1>
+      <br>
+      <p class="lead text-muted"><%=@descriptive_line1%><br>
+        <span style="font-style: italic"><%=@descriptive_line2%></span>
+      </p>
+      <br>
+      <br>
+      <p>
+        
+        <%= link_to "See all Listings", listings_path, class: "btn btn-dark my-2" %>
+        <% if user_signed_in? %>
+        <%= link_to "See my Listings", my_listings_path, class: "btn btn-dark my-2" %>
+        <% end %>
+        <!-- <h4>Consider a search option here</h4> -->
+      </p>
+    </div>
+  </div>
+</section>
+<span style="font-style: italic; font-size:0.6em; color:azure">&nbsp;&nbsp;photo by Bradley Hook (pexels.com) </span>

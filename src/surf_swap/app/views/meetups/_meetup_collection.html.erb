@@ -1,0 +1,36 @@
+<div class="album py-5 bg-light" id="hosted_meetups">
+  <div class="container">
+
+    <h2><%= title %></h2>
+    <% count = meetup_collection.count %>
+    <% case count %>
+    <% when 0 %>
+      <p style="font-style: italic;">
+        <%= none_msg %>
+        <hr>
+      </p>
+    <% else %>
+    <p style="font-style: italic;">You currently have <%= count %> <%= (count == 1 ) ? "Meetup" : "Meetups" %> planned</p>
+    <hr>
+    
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> <!--full width div-->
+      <div class="col">
+        <div class="card shadow-lg" >
+
+          <% meetup_collection.each do |meetup| %>
+          
+            <% listing = Listing.find(meetup.listing_id) %> 
+            <%= render 'card_header', listing: listing %>
+            <%= render 'card_picture' %>
+            <%= render 'card_body', meetup: meetup, listing: listing %>
+            <%= render 'card_buttons', meetup: meetup %>
+        
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

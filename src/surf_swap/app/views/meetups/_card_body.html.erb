@@ -1,0 +1,22 @@
+<div class="card-body">
+
+  <h3><%= listing.user == current_user ? "Your Items" : "Items from #{listing.user.first_name}" %></h3>
+  <p><%= listing.user.phone %></p>
+  <p class="card-text"> <%= listing.comment %> </p>
+  <hr>
+
+  <% listing.boards.each do |board| %>
+    <p class="card-text"> Shaper/Designer: <%= board.designer%></p>
+    <p class="card-text"> Description: <%= board.description%> </p>
+    <hr>
+  <% end %>
+
+  <% offer = Offer.find(meetup.offer_id.to_i) %>
+  <h3><%= offer.user == current_user ? "Your Items" : "Items from #{offer.user.first_name}" %></h3>
+  <p><%= offer.user.phone %></p>
+  <hr>
+  <% offer.boards.each do |board| %>
+    <p class="card-text">Shaper/Designer: <%= board.designer%></p>
+    <p class="card-text">Description/Description: <%= board.description%> </p>
+    <hr>
+  <% end %>

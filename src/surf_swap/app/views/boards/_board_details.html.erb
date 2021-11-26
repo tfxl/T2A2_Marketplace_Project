@@ -1,0 +1,51 @@
+<p>
+  <span style=color:darkslateblue %>Length:</span>
+  <%= board.length %>
+</p>
+
+<% unless board.width.nil? %>
+  <p>
+    <span style=color:darkslateblue %> Width:</span>
+    <%= board.width %>
+  </p>
+<% end %>
+
+<% unless board.volume.nil? %>
+  <p>
+    <span style=color:darkslateblue %> Volume:</span>
+    <%= board.volume %>
+  </p>
+<% end %>
+
+<% unless board.fins.nil? || board.fins.length == 0 %>
+  <p>
+    <span style=color:darkslateblue %> Fins:</span>
+    <%= board.fins %>
+  </p>
+<% end %>
+
+<% unless board.tail.nil? || board.tail.length == 0 %>
+  <p>
+    <span style=color:darkslateblue %> Tail:</span>
+    <%= board.tail %>
+  </p>
+<% end %>
+
+<% unless board.attachments.nil? || board.attachments.length == 0 %>
+<p>
+  <span style=color:darkslateblue %> Attachments:</span>
+  <%= board.attachments %>
+</p>
+<% end %>
+
+<hr>
+<p>
+  <span style=color:darkslateblue %>Condition:</span>
+  <%= board.condition %>
+</p>
+<hr>
+
+<p>
+  <span style=color:darkslateblue %>Description:</span>
+  <%= board.description %>
+</p>

@@ -1,0 +1,76 @@
+
+<%= render 'header', title: form_title%>
+<%= render 'layouts/nav_flash_output_E' %>
+
+<section class="container contact-form row">
+
+
+  <%= form_with model: @board do |field|%>
+
+    <div class="form-group">
+      <%= field.label "Shaper / Designer"%> 
+      <%= field.text_field :designer, class:"form-control", id:"exampleFormControlInput1", placeholder:"Shaper or Designer"%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label "Length (cm)"%> 
+      <%= field.select :length, (150..365), include_blank: true, class: "form-select"%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label "Width (cm)"%> 
+      <%= field.select :width, (40..55), include_blank: true%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label "Volume (Litres)" %> 
+      <%= field.select :volume, (15..80), include_blank: true%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label :fins %> 
+      <%= field.select :fins, ['Single', 'Twin', 'Thruster', 'Quad', 'Other'], include_blank: true%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label :tail %> 
+      <%= field.select :tail, ['Pin', 'Round', 'Squash', 'Swallow', 'Other'], include_blank: true%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label :condition %> 
+      <%= field.select :condition, ['Great', 'Good', 'Reasonable', 'Pretty Average']%>
+    </div>
+
+    <div class="form-group">
+      <%= field.label "Attachments" %> 
+      <%= field.text_field :attachments, class:"form-control", id:"exampleFormControlInput1", placeholder:"Please include any attachments such as leg-ropes"%>
+    </div>
+    
+    <div class="form-group">
+      <br>
+      <%= field.label "Description" %> 
+      <%= field.text_area :description, class: "form-control", placeholder: "Please write a short description*",  style: "width: 100%; height: 150px;"%>
+    </div>
+
+ 
+    <h5 style="color:olivedrab"> Please upload a single image for this surfboard</h5>
+    
+    <%# unless @board.board_image.nil? %>
+    <!-- <p style="color:olivedrab; font-style:italic">This surfboard currently has an image - browse to change</p> -->
+    <%# end %>
+
+    <div class="form-group">
+      <%= field.label :board_image, for: "formFile" %> 
+      <%= field.file_field :board_image, type:"file", class: "formFile", id:"formFile" %>
+    </div>
+    <p style="color:darkslateblue; font-style:italic">
+      Please select only a photo of type .png, .jpg, .jpeg or .webp and ensure it is less than 5mb in size
+    </p>
+    <%= field.submit button_name, class: "btn btn-dark mb-5"%> 
+
+  <% end %>
+
+
+  </section>
+
